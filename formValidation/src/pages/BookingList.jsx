@@ -6,9 +6,11 @@ export default function BookingList() {
   const [bookings, setBookings] = useState([]);
   const [message, setMessage] = useState("");
 
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
+
   const fetchBookings = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/bookings");
+      const res = await fetch(`${API_BASE_URL}/api/bookings`);
       const data = await res.json();
       if (data.success) setBookings(data.bookings);
     } catch (err) {
@@ -22,7 +24,7 @@ export default function BookingList() {
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this booking?")) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/bookings/${id}`, { method: "DELETE" });
+      const res = await fetch(`${API_BASE_URL}/api/bookings/${id}`, { method: "DELETE" });
       const data = await res.json();
       if (data.success) { fetchBookings(); setMessage(data.message); }
       else setMessage(data.message);

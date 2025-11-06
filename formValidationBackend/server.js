@@ -6,8 +6,26 @@ require("dotenv").config();
 
 const app = express();
 
-// Middlewares
-app.use(cors());
+// ✅ CORS configuration
+const allowedOrigins = [
+  "http://localhost:5173", 
+  "book-my-trip-c1k2pxq0g-snehal-s-projects-9bf657ef.vercel.app", // replace with your actual frontend Render URL
+  "https://book-my-trip-eight.vercel.app/"
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    // allow requests with no origin (like mobile apps or curl)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = "The CORS policy does not allow access from this origin.";
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
+  credentials: true
+}));
+
 app.use(express.json());
 
 // Routes
@@ -15,7 +33,7 @@ const bookingsRouter = require("./routes/bookings");
 app.use("/api/bookings", bookingsRouter);
 
 // MongoDB connection
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.log("MongoDB connection error:", err));
 

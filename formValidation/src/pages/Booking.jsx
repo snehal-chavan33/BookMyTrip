@@ -10,12 +10,15 @@ export default function Booking() {
   const [errors, setErrors] = useState({});
   const [serverMessage, setServerMessage] = useState("");
 
+    //  Use environment variable for backend URL
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setServerMessage(""); setErrors({});
 
     try {
-      const res = await fetch("http://localhost:5000/api/bookings", {
+       const res = await fetch(`${API_BASE_URL}/api/bookings`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form)
