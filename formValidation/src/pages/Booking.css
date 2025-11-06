@@ -1,0 +1,36 @@
+/* App.css or Booking.css */
+.app-background {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* Background image with dark overlay */
+  background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
+              url("https://picsum.photos/1200/800?travel") no-repeat center center/cover;
+}
+.form-box {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+  color: #000;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+}
+.error-text {
+  color: #d8000c;
+  background-color: #ffbaba;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 6px 10px;
+  margin-top: 5px;
+  border-radius: 6px;
+  border: 1px solid #d8000c;
+  display: inline-block;
+}
